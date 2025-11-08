@@ -1,0 +1,101 @@
+.container {
+  min-height: 100dvh;                  /* full dynamic viewport height */
+  display: grid;
+  place-items: center;
+  background: #f3f4f6;                 /* light grey page/window background */
+  padding: 24px;
+}
+
+/* one place for box-sizing; avoids duplicate rules */
+.form,
+.form * {
+  box-sizing: border-box;              /* include padding/border in width calc */
+}
+
+.form {
+  width: 100%;
+  max-width: min(92vw, 420px);         /* cap width to 92% of viewport on phones, never exceed 420px */
+  background: #1d4ed8;
+  color: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  padding: 22px;
+  border: 1px solid #1e40af;
+}
+
+.title {
+  margin: 0 0 14px;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;                  /* centers the "Log in" heading */
+}
+
+.label {
+  display: block;
+  margin: 10px 0 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 16px;
+  background: #fff;
+  color: #111827;           /* force dark text so typing is visible */
+  caret-color: #111827;     /* visible cursor */
+}
+
+.input::placeholder {
+  color: #6b7280;           /* readable placeholder */
+}
+
+.input:focus {
+  outline: 3px solid rgba(59,130,246,0.35);
+  border-color: #93c5fd;
+}
+
+.inputInvalid {
+  border-color: var(--danger);
+}
+
+.error {
+  margin: 4px 0 8px;
+  font-size: 13px;
+  color: #ef4444;           /* red */
+}
+
+/* spacing between email input (or its error) and the next label */
+.input + .label,
+.error + .label {
+  margin-top: 16px;
+}
+
+/* extra space above the error right after an input */
+.input + .error {
+  margin-top: 12px;
+}
+
+.button {
+  margin-top: 12px;          /* gap above the button */
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 600;
+  color: #111827;            /* dark text for contrast on light grey */
+  background: #d1d5db;       /* light grey */
+  cursor: pointer;
+}
+
+.button:not(:disabled):hover {
+  background: #6b7280;       /* darker grey only when NOT disabled */
+  color: #fff;
+}
+
+.button:disabled {
+  background: #d1d5db;       /* stay light grey while submitting */
+  color: #111827;
+}
