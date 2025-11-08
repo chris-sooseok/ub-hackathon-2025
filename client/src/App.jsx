@@ -3,6 +3,7 @@ import RootLayout from './pages/RootLayout';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 
+
 export const router = createBrowserRouter(
   [ 
     { path: "/", element: <Navigate to="/app" replace /> },
