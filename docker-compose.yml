@@ -1,0 +1,15 @@
+services:
+  mongo:
+    image: mongo:4.2.5
+
+  server:
+    build:
+      context: .
+      dockerfile: server.Dockerfile
+    container_name: flask-backend
+    environment:
+      MONGO_URL: mongodb://mongo:27017
+      MONGO_DOCUMENT: cse312-project
+      WAIT_HOSTS: mongo:27017
+
+  client:
