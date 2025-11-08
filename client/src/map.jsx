@@ -1,24 +1,26 @@
 import React from "react";
+import { Component } from "react"
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-function LocationMarker() {
-  const [position, setPosition] = useState(null)
-  const map = useMapEvents({
-    click() {
-      map.locate()
-    },
-    locationfound(e) {
-      setPosition(e.latlng)
-      map.flyTo(e.latlng, map.getZoom())
-    },
-  })
 
-  return position === null ? null : (
-    <Marker position={position}>
-      <Popup>You are here</Popup>
-    </Marker>
-  )
-}
 export default function Map() {
+    const handleClick = () => {
+    const [data, setdata] = useState({
+        message:""
+    });
+  useEffect(() => {
+        // Using fetch to fetch the api from 
+        // flask server it will be redirected to proxy
+        fetch("/map/send/1").then((res) =>
+            res.json().then((data) => {
+                // Setting a data from api
+                setdata({
+                    message: data.message,
+                });
+            })
+        );
+    }, []);
+    console.log(data);
+  }
   return (
     <MapContainer center={[43.0001, -78.7865]} zoom={15} scrollWheelZoom={true} maxBounds={[[43.014648, -78.804791], [42.984009, -78.757779]]} minZoom={17} 
 >
@@ -28,7 +30,7 @@ export default function Map() {
       />
       <Marker position={[43.0001, -78.78659]}>
         <Popup>
-          This is a popup
+          <button onClick={handleClick}>Press Me</button>
         </Popup>
       </Marker>
     </MapContainer>

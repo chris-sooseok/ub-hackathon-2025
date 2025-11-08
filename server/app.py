@@ -12,5 +12,9 @@ def hello_world():
 def check():
     return jsonify({"message": "✅ connected!"})
 
+@app.route('/map/send/<pin>')
+def send_pin(pin):
+    return jsonify({"message": "pin info received"})
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5500, debug=True)
