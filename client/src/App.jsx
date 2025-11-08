@@ -1,25 +1,24 @@
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"; 
-import RootLayout from './pages/RootLayout';
-import LandingPage from './pages/LandingPage';
-import LoginPage from './pages/LoginPage';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import RootLayout from "./pages/RootLayout.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Redirect "/" → "/app" */}
+        <Route path="/" element={<Navigate to="/app" replace />} />
 
-export const router = createBrowserRouter(
-  [ 
-    { path: "/", element: <Navigate to="/app" replace /> },
-    { path: "/app", 
-      element: <RootLayout />,
-      children: [
-        {index: true, element: <LandingPage />},
-        {path: 'login', element: <LoginPage />}
-      ],
-    },
-    { path: "*", element: <Navigate to="/app" replace /> }, // simple catch-all
-  ]
-)
+        {/* App section with nested routes rendered inside RootLayout's <Outlet /> */}
+        <Route path="/app" element={<RootLayout />}>
+          <Route index element={<LandingPage />} />
+          <Route path="login" element={<LoginPage />} />
+        </Route>
 
-function App() {
-  return <RouterProvider router={router} />;
+        {/* Catch-all → "/app" */}
+        <Route path="*" element={<Navigate to="/app" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App
