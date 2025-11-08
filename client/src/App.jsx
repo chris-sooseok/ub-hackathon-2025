@@ -32,7 +32,6 @@ function App() {
       <Map />
     </div>
       </div>
-  
 
       {connectionStatus && <p>{connectionStatus}</p>}
     </>
