@@ -4,7 +4,6 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Map from "./map.jsx";
 
-
 function App() {
   const [count, setCount] = useState(0)
   const [connectionStatus, setConnectionStatus] = useState(null)
@@ -31,11 +30,22 @@ function App() {
         <div className="App">
       <Map />
     </div>
-      </div>
+      </div>    
+    <BrowserRouter>
+      <Routes>
+        {/* Redirect "/" → "/app" */}
+        <Route path="/" element={<Navigate to="/app" replace />} />
 
-      {connectionStatus && <p>{connectionStatus}</p>}
+        {/* App section with nested routes rendered inside RootLayout's <Outlet /> */}
+        <Route path="/app" element={<RootLayout />}>
+          <Route index element={<LandingPage />} />
+          <Route path="login" element={<LoginPage />} />
+        </Route>
+
+        {/* Catch-all → "/app" */}
+        <Route path="*" element={<Navigate to="/app" replace />} />
+      </Routes>
+    </BrowserRouter>
     </>
-  )
+  );
 }
-
-export default App
