@@ -41,6 +41,20 @@ export default function Toolbar() {
 
           {open && (
             <div id="settings-menu" className={styles.settingsMenu} role="menu">
+              <div id="leaderTitle" role ="columnheader" className={styles.menuItem}>Leaderboard</div>
+                <hr role ="separator"></hr>
+                <hr role ="separator"></hr>
+                <div id="leader1" role ="cell" className={styles.menuItem}>Neem - 40pts</div>
+                <hr role ="separator"></hr>
+                <div id="leader2" role ="cell" className={styles.menuItem}>Chris - 20pts</div>
+                <hr role ="separator"></hr>
+                <div id="leader3" role ="cell" className={styles.menuItem}>Alex - 15pts</div>
+                <hr role ="separator"></hr>
+                <div id="leader4" role ="cell" className={styles.menuItem}>Oscar - 10pts</div>
+                <hr role ="separator"></hr>
+                <div id="leader5" role ="cell" className={styles.menuItem}>Azriel - 5pts</div>
+                <hr role ="separator"></hr>
+                <hr role ="separator"></hr>
               <div className={styles.menuItem} role="button" onClick={handleSignOut}>
                 Sign out
               </div>
