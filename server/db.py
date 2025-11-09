@@ -9,3 +9,4 @@ client = MongoClient(MONGO_URL, tz_aware=True)
 db = client[DB_NAME]
 
 users = db["users"]
+pins = db["pins"]
