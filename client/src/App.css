@@ -1,5 +1,5 @@
 #toolbar {
-  background-color: red;
+  background-color: var(--gray-dark);
   position: fixed;
   bottom: 0;
   width: 100vw;

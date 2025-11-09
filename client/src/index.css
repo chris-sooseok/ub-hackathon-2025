@@ -11,10 +11,12 @@
   --color-bg: #1E1E1E;
   --color-text: #FFFFFF;
 
-  --primary: #446943;
-  --primary-hov: #385637;
-  --secondary: #95C897;
-  --secondary-hov: #82AB83;
+  --primary: #3C5B99;
+  --primary-hov: #5b74a7;
+  --green: #29AB5A;
+  --green-hov: #329157;
+  --red: #DE0829;
+  --red-hov: #f94862;
   --neutral: #F7F7C8;
   --neutral-hov: #DADAAD;
 
@@ -23,8 +25,6 @@
   --gray-dark: #575757;
   --gray-darkest: #383838;
 
-  --delete: #FF7E7E;
-  --delete-hov: #D06B6B;
   --focus: #6cc2da;
 
   --font-sans: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
