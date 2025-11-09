@@ -14,20 +14,20 @@ const Toolbar = () => {
             {/* Case 1: Logged in & NOT on post page */}
             {isLoggedIn && !onPostPage ? (
                 <>
-                    <button>
+                    <button className="left secondary icon">
                         <img src={settingsIcon} alt="options" />
                     </button>
-                    <button>
+                    <button className="center primary icon">
                         <img src={cameraIcon} alt="make post" />
                     </button>
                 </>
             ) : isLoggedIn && onPostPage ? (
                 // Case 2: Logged in & on post page
                 <>
-                    <button>
+                    <button className="left secondary icon">
                         <img src={settingsIcon} alt="options" />
                     </button>
-                    <button>
+                    <button className="center primary icon">
                         <img src={mapIcon} alt="map" />
                     </button>
                 </>

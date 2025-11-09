@@ -20,6 +20,7 @@ export default function App() {
 
         {/* Catch-all → "/app" */}
         <Route path="/test" element={<Test />}/>
+        <Route path="/make-post" element={<Test />}/>
         <Route path="*" element={<Navigate to="/app" replace />} />
       </Routes>
     </BrowserRouter>

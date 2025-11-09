@@ -61,6 +61,14 @@ button, .btn {
   cursor: pointer;
 }
 
+.btn.icon, button.icon {
+  line-height: 0;
+}
+
+button svg {
+  display: block;
+}
+
 .primary:hover {
   background-color: var(--primary-hov);
 }
@@ -77,4 +85,21 @@ button, .btn {
 .secondary, .secondary:active {
   background-color: var(--secondary);
   color: #000;
+}
+
+.center {
+  margin: auto;
+}
+
+.left {
+  position: absolute;
+  left: 20px;
+}
+
+button.center.icon, .btn.center.icon {
+  border-radius: 100px;
+}
+
+button.left.icon, .btn.left.icon {
+  padding: 5px;
 }

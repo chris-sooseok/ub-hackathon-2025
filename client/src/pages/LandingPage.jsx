@@ -1,6 +1,11 @@
-
-import { useState, useEffect } from "react";
+import Map from "../components/map"
+import Toolbar from "../components/toolbar"
 
 export default function LandingPage() {
-    return <></>
+    return (
+        <>
+            <Map />
+            <Toolbar />
+        </>
+    )
 }
