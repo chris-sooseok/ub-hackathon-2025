@@ -1,23 +1,13 @@
-FROM node:20
-
+FROM node:20-bookworm-slim AS build
 WORKDIR /app
-
-# copy and install dependencies
-COPY ./client/package*.json ./
-RUN npm install
-
-# install serve globally
-RUN npm install -g serve
-
-# copy all other files
-COPY ./client .
-
-# Accept build arguments
+COPY client/package*.json ./
+RUN npm ci
+COPY client/ .
 ARG VITE_API_URL
 ENV VITE_API_URL=$VITE_API_URL
-
-# build the app
 RUN npm run build
 
-# set the command to serve the production build
-CMD ["serve", "-s", "dist", "-l", "8080"]
+#nginx stuff
+FROM nginx:1.27-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY client/nginx.conf /etc/nginx/conf.d/default.conf
