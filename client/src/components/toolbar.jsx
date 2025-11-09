@@ -4,9 +4,10 @@ import { useState } from "react";
 import cameraIcon from "../assets/icons/Camera.svg";
 import mapIcon from "../assets/icons/Map.svg";
 import settingsIcon from "../assets/icons/Settings.svg";
+import { Link } from "react-router-dom";
 
 const Toolbar = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const onPostPage = location.pathname.startsWith("/make-post");
 
     return (
@@ -14,28 +15,28 @@ const Toolbar = () => {
             {/* Case 1: Logged in & NOT on post page */}
             {isLoggedIn && !onPostPage ? (
                 <>
-                    <button className="left secondary icon">
+                    <button className="btn left secondary icon">
                         <img src={settingsIcon} alt="options" />
                     </button>
-                    <button className="center primary icon">
+                    <Link to="/make-post" className="btn center primary icon">
                         <img src={cameraIcon} alt="make post" />
-                    </button>
+                    </Link>
                 </>
             ) : isLoggedIn && onPostPage ? (
                 // Case 2: Logged in & on post page
                 <>
-                    <button className="left secondary icon">
+                    <button className="btn left secondary icon">
                         <img src={settingsIcon} alt="options" />
                     </button>
-                    <button className="center primary icon">
+                    <Link to="/app" className="btn center primary icon">
                         <img src={mapIcon} alt="map" />
-                    </button>
+                    </Link>
                 </>
             ) : (
                 // Case 3: Not logged in
                 <>
-                    <button className="tb-3 primary">Log In</button>
-                    <button className="tb-3 secondary">Register</button>
+                    <Link to="/app/login" className="btn tb-3 primary">Log In</Link>
+                    <Link to="/app/signup" className="btn tb-3 secondary">Register</Link>
                 </>
             )}
         </div>

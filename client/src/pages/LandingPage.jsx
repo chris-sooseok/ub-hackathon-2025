@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import MapPage from "../MapPage.jsx";
+import MapPage from "../components/Map.jsx";
 import { AuthContext } from "../context/AuthContext.jsx";
 import { useContext } from "react";
-import Toolbar from "../components/toolbar"
+import Toolbar from "../components/Toolbar.jsx"
 
 export default function LandingPage() {
   const navigate = useNavigate();
