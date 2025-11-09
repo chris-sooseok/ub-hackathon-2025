@@ -1,10 +1,11 @@
 // toolbar contains login/register if not logged in
 // pic/map button and options if logged on
+import { useState } from "react";
 import cameraIcon from "../assets/icons/Camera.svg";
 import mapIcon from "../assets/icons/Map.svg";
 import settingsIcon from "../assets/icons/Settings.svg";
 
-export default Toolbar = () => {
+const Toolbar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const onPostPage = location.pathname.startsWith("/make-post");
 
@@ -33,10 +34,12 @@ export default Toolbar = () => {
             ) : (
                 // Case 3: Not logged in
                 <>
-                    <button>Log In</button>
-                    <button>Register</button>
+                    <button className="tb-3">Log In</button>
+                    <button className="tb-3">Register</button>
                 </>
             )}
         </div>
     )
 }
+
+export default Toolbar;

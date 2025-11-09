@@ -1,22 +1,25 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import "./App.css"
 import RootLayout from "./pages/RootLayout.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import Test from "./pages/Test.jsx";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Redirect "/" → "/app" */}
-        <Route path="/" element={<Navigate to="/app" replace />} />
+        {/* <Route path="/" element={<Navigate to="/app" replace />} /> */}
 
         {/* App section with nested routes rendered inside RootLayout's <Outlet /> */}
-        <Route path="/app" element={<RootLayout />}>
-          <Route index element={<LandingPage />} />
-          <Route path="login" element={<LoginPage />} />
-        </Route>
+        {/* <Route path="/app" element={<RootLayout />}> */}
+          {/* <Route index element={<LandingPage />} /> */}
+          {/* <Route path="login" element={<LoginPage />} /> */}
+        {/* </Route> */}
 
         {/* Catch-all → "/app" */}
+        <Route path="/test" element={<Test />}/>
         <Route path="*" element={<Navigate to="/app" replace />} />
       </Routes>
     </BrowserRouter>
