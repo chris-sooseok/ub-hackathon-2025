@@ -70,7 +70,7 @@ def login():
     if not user or not check_password_hash(user["password_hash"], password):
         # Generic message to avoid leaking which part failed
         return bad_request("Invalid email or password.", code=401)
-
+    session.permanent = True
     session["user_id"] = str(user["_id"])                        # Comment: keep user logged in
     return jsonify({"success": True})
 

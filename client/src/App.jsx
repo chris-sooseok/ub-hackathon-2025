@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css"
 import RootLayout from "./pages/RootLayout.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import LoginPage from "./pages/auth/LoginPage.jsx";
 import SignupPage from "./pages/auth/SignupPage.jsx";
-import AuthTestPage from './pages/AuthTestPage.jsx';
 import { AuthProvider } from "./context/AuthContext.jsx";
 
 export default function App() {
@@ -24,8 +22,6 @@ export default function App() {
             <Route path="login" element={<LoginPage />} />
             <Route path="signup" element={<SignupPage />} />
             <Route path="test" element={<AuthTestPage />} />
-            {/* <Route path="/test" element={<Test />}/>
-            <Route path="/make-post" element={<Test />}/> */}
           </Route>
 
           {/* Catch-all → "/app" */}
