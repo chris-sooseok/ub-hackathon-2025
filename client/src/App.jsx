@@ -31,7 +31,6 @@ export default function App() {
     <>
       <div>
         <div className="App">
-      <Map />
     </div>
       </div>    
     <BrowserRouter>
