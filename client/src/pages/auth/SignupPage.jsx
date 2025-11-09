@@ -52,7 +52,7 @@ export default function SignupPage() {
           confirmPassword: values.confirmPassword,
         }),
       });
-      const minDelay = new Promise((r) => setTimeout(r, 2000)); // ensure 2s "Creating..."
+      const minDelay = new Promise((r) => setTimeout(r, 1000)); // ensure 2s "Creating..."
 
       const [res] = await Promise.all([req, minDelay]);
 
