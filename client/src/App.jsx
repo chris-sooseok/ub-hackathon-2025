@@ -1,10 +1,40 @@
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import RootLayout from "./pages/RootLayout.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+import Map from "./map.jsx";
 
 export default function App() {
+  const [count, setCount] = useState(0)
+  const [connectionStatus, setConnectionStatus] = useState(null)
+
+  const checkConnection = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/check-connection`)
+      if (!response.ok) throw new Error('Network response was not ok')
+      const data = await response.json()
+      setConnectionStatus(data.message || 'Connected!')
+    } catch (error) {
+      setConnectionStatus('❌ Connection failed')
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    checkConnection()
+  }, [])
+
   return (
+    <>
+      <div>
+        <div className="App">
+      <Map />
+    </div>
+      </div>    
     <BrowserRouter>
       <Routes>
         {/* Redirect "/" → "/app" */}
@@ -20,5 +50,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/app" replace />} />
       </Routes>
     </BrowserRouter>
+    </>
   );
 }

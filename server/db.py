@@ -20,3 +20,5 @@ def check_indexes():
 
     #creating points index 
     db.points.create_index([("user_id", ASCENDING), ("created_at", DESCENDING)])
+
+    #creating location indices
