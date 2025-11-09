@@ -27,7 +27,7 @@ def _ensure_media_dir():
 
 def _media_root():
     # If you already have _ensure_media_dir(), you can reuse that instead.
-    root = os.path.join(current_app.root_path, "media")
+    root = current_app.config["MEDIA_ROOT"]
     os.makedirs(root, exist_ok=True)
     return root
 
@@ -75,6 +75,7 @@ def create_marker():
 
     # Save image as <pin_id>.<ext>
     filename = secure_filename(f"{pin_id}{ext}")
+    media_root = _media_root()
     save_path = os.path.join(media_root, filename)
     img.save(save_path)
 

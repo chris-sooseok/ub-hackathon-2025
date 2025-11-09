@@ -13,6 +13,8 @@ app = Flask(__name__)
 # Needed for Flask session cookies (used after login/signup)
 app.secret_key = os.getenv("SECRET_KEY", "dev-secret")
 
+app.config["MEDIA_ROOT"] = os.getenv("MEDIA_ROOT", "/app/media")
+
 app.config.update(
     PERMANENT_SESSION_LIFETIME=timedelta(days=7),
     SESSION_COOKIE_HTTPONLY=True,

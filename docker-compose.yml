@@ -15,8 +15,10 @@ services:
       - mongo
     # ports: # to expose port so frontend can request. can change after reverse proxy config
     #   - "5500:5500"
+    environment:
+      - MEDIA_ROOT=/data/media
     volumes:
-      - server_media:/app/media
+      - server_media:/data/media
 
   client:
     build:
@@ -28,7 +30,8 @@ services:
     restart: unless-stopped
     depends_on:
       - server
-
+    # ports:
+    #   - "8080:8080"
 
   caddy:
     image: caddy:2
