@@ -1,19 +1,105 @@
-/* src/index.css */
+/* === CSS RESET === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
-  /* define your font stack once */
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  --color-bg: #1E1E1E;
+  --color-text: #FFFFFF;
+
+  --primary: #3C5B99;
+  --primary-hov: #5b74a7;
+  --secondary: #8cd5ff;
+  --secondary-hov: #a2d4f1;
+  --green: #29AB5A;
+  --green-hov: #329157;
+  --red: #DE0829;
+  --red-hov: #f94862;
+  --neutral: #D6E9D5;
+  --neutral-hov: #b9d2b7;
+
+  --gray-light: #A6A6A6;
+  --gray: #6D6D6D;
+  --gray-dark: #575757;
+  --gray-darkest: #383838;
+
+  --focus: #6cc2da;
+
+  --font-sans: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  /* 20px */
+  --page-padding: 1.25rem;
 }
 
-html, body, #root { height: 100%; } /* ensures full-height layouts behave */
+*:focus-visible {
+  outline: 1.5px solid var(--focus);
+}
+
 body {
-  margin: 0;                                     /* remove default body margin */
-  font-family: var(--font-sans);                 /* apply globally */
-  -webkit-font-smoothing: antialiased;          /* crisper text on WebKit */
-  -moz-osx-font-smoothing: grayscale;           /* crisper text on macOS */
-  text-rendering: optimizeLegibility;           /* better kerning/ligatures */
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
 }
 
-/* make form controls inherit the global font too */
-button, input, select, textarea {
-  font: inherit; /* inherits family, size, weight from body */
+.leaflet-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+button, .btn {
+  padding: 10px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn.icon, button.icon {
+  line-height: 0;
+}
+
+button svg {
+  display: block;
+}
+
+.primary:hover {
+  background-color: var(--primary-hov);
+}
+
+.secondary:hover {
+  background-color: var(--secondary-hov);
+}
+
+.primary, .primary:active {
+  background-color: var(--primary);
+  color: #FFF;
+}
+
+.secondary, .secondary:active {
+  background-color: var(--secondary);
+  color: #000;
+}
+
+.center {
+  margin: auto;
+}
+
+.left {
+  position: absolute;
+  left: 20px;
+}
+
+button.center.icon, .btn.center.icon {
+  border-radius: 100px;
+}
+
+button.left.icon, .btn.left.icon {
+  padding: 5px;
 }

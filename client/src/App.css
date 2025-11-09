@@ -1,0 +1,20 @@
+#toolbar {
+  background-color: var(--neutral);
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 60px;
+  padding: 0 20px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* make sure toolbar shows above map and anything else */
+  z-index: 9999;
+}
+
+#toolbar .tb-3 {
+  max-width: calc(50% - 10px);
+  width: 50%;
+}

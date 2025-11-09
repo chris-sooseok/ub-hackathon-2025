@@ -1,7 +1,7 @@
 import Map from "../components/map"
 import Toolbar from "../components/toolbar"
 
-export default function LandingPage() {
+const Test = () => {
     return (
         <>
             <Map />
@@ -9,3 +9,5 @@ export default function LandingPage() {
         </>
     )
 }
+
+export default Test
