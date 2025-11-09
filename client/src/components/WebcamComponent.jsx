@@ -1,40 +1,53 @@
 // src/WebcamComponent.jsx
 import Webcam from "react-webcam";
 import { useCallback, useRef, useState } from "react";
-import styles from "./WebcamComponent.module.css"; // CSS Module for styles
+import styles from "./WebcamComponent.module.css";
 
 const CustomWebcam = ({ lat, lng, onUploaded, onCancel }) => {
-  const webcamRef = useRef(null);                 // holds the webcam instance
-  const [imgSrc, setImgSrc] = useState(null);     // captured data URL (preview)
-  const [busy, setBusy] = useState(false);        // upload in progress
-  const [notice, setNotice] = useState(null); 
-  
-  const stop = (e) => e.stopPropagation();        // prevents map from handling clicks
+  const webcamRef = useRef(null);
+  const labelRef = useRef(null);
+
+  const [imgSrc, setImgSrc] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const [notice, setNotice] = useState(null);
+
+  // NEW: label + error state
+  const [label, setLabel] = useState("");
+  const [labelError, setLabelError] = useState(false);
+
+  const stop = (e) => e.stopPropagation();
 
   const capture = useCallback(() => {
-    const dataUrl = webcamRef.current?.getScreenshot(); // data:image/webp;base64,...
+    const dataUrl = webcamRef.current?.getScreenshot();
     if (!dataUrl) return;
-    setImgSrc(dataUrl);                                 // show preview + Upload button
+    setImgSrc(dataUrl);
   }, []);
 
   const upload = useCallback(async () => {
-    if (!imgSrc || lat == null || lng == null) return;           // ✅ require lat/lng
+    // require label
+    if (!label.trim()) {
+      setLabelError(true);
+      // optional: focus the field
+      labelRef.current?.focus();
+      return;
+    }
+    if (!imgSrc || lat == null || lng == null) return;
+
     setBusy(true);
     setNotice(null);
     try {
       const blob = await (await fetch(imgSrc)).blob();
       const form = new FormData();
       form.append("image", blob);
-      form.append("lat", String(lat));                            // ✅ send lat
-      form.append("lng", String(lng));                            // ✅ send lng
+      form.append("lat", String(lat));
+      form.append("lng", String(lng));
+      form.append("label", label.trim()); // send the text
 
-      console.log(form);
       const r = await fetch(`${import.meta.env.VITE_API_URL || ""}/map/create-marker`, {
         method: "POST",
         body: form,
-        credentials: "include",                                   // keep cookies
+        credentials: "include",
       });
-      console.log(r);
 
       if (!r.ok) {
         const data = await r.json().catch(() => ({}));
@@ -48,13 +61,13 @@ const CustomWebcam = ({ lat, lng, onUploaded, onCancel }) => {
     } finally {
       setBusy(false);
     }
-  }, [imgSrc, lat, lng]);
+  }, [imgSrc, lat, lng, label, onUploaded]);
 
   const retake = () => setImgSrc(null);
 
   return (
     <div
-      className={`no-map-click ${styles.wrap}`}         /* keep no-map-click for your map filter */
+      className={`no-map-click ${styles.wrap}`}
       onMouseDown={stop}
       onClick={stop}
       onTouchStart={stop}
@@ -62,20 +75,38 @@ const CustomWebcam = ({ lat, lng, onUploaded, onCancel }) => {
       {!imgSrc ? (
         <Webcam
           ref={webcamRef}
-          screenshotFormat="image/webp"                 /* ensure webp data URL */
-          videoConstraints={{ facingMode: "environment" }} /* back camera on mobile */
-          className={styles.frame}                      /* sized camera viewport */
+          screenshotFormat="image/webp"
+          videoConstraints={{ facingMode: "environment" }}
+          className={styles.frame}
         />
       ) : (
         <img src={imgSrc} alt="preview" className={styles.frame} />
       )}
+
+      {/* NEW: label input */}
+      <textarea
+        ref={labelRef}
+        className={`${styles.input} ${labelError ? styles.inputError : ""}`}
+        value={label}
+        onChange={(e) => {
+          setLabel(e.target.value);
+          if (labelError && e.target.value.trim()) setLabelError(false);
+        }}
+        placeholder={
+          labelError
+            ? "A short description/location is required"
+            : "Add a short description or location…"
+        }
+        aria-invalid={labelError || undefined}
+        rows={2}
+      />
 
       {!imgSrc ? (
         <div className={styles.row}>
           <button
             type="button"
             onMouseDown={stop}
-            onClick={capture}                           /* capture only */
+            onClick={capture}
             onTouchStart={stop}
             className={`${styles.btn} ${styles.btnPrimary}`}
           >
@@ -97,7 +128,7 @@ const CustomWebcam = ({ lat, lng, onUploaded, onCancel }) => {
             type="button"
             disabled={busy}
             onMouseDown={stop}
-            onClick={upload}                            /* upload after preview */
+            onClick={upload}
             onTouchStart={stop}
             className={`${styles.btn} ${styles.btnPrimary}`}
           >
@@ -106,12 +137,23 @@ const CustomWebcam = ({ lat, lng, onUploaded, onCancel }) => {
           <button
             type="button"
             onMouseDown={stop}
-            onClick={retake}                            /* discard preview and return to camera */
+            onClick={retake}
             onTouchStart={stop}
             className={`${styles.btn} ${styles.btnGhost}`}
           >
             Retake
           </button>
+        </div>
+      )}
+
+      {notice && (
+        <div
+          className={
+            notice.type === "success" ? styles.noticeSuccess : styles.noticeError
+          }
+          role="status"
+        >
+          {notice.text}
         </div>
       )}
     </div>
