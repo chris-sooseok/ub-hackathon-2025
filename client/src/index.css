@@ -1,4 +1,7 @@
-/* === CSS RESET === */
+/* src/styles/globals.css
+   Keep only true globals: reset, tokens, base, and 3rd-party container. */
+
+/* === RESET === */
 *,
 *::before,
 *::after {
@@ -7,6 +10,7 @@
   padding: 0;
 }
 
+/* === DESIGN TOKENS (global variables) === */
 :root {
   --color-bg: #1E1E1E;
   --color-text: #FFFFFF;
@@ -30,11 +34,10 @@
   --focus: #6cc2da;
 
   --font-sans: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
-
-  /* 20px */
-  --page-padding: 1.25rem;
+  --page-padding: 1.25rem; /* 20px */
 }
 
+/* === BASE === */
 *:focus-visible {
   outline: 1.5px solid var(--focus);
 }
@@ -47,61 +50,8 @@ body {
   font-family: var(--font-sans);
 }
 
+/* === THIRD-PARTY GLOBAL (Leaflet) === */
 .leaflet-container {
   height: 100vh;
   width: 100vw;
-}
-
-button, .btn {
-  padding: 10px;
-  border: 2px solid #000;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center;
-}
-
-.btn.icon, button.icon {
-  line-height: 0;
-}
-
-button svg {
-  display: block;
-}
-
-.primary:hover {
-  background-color: var(--primary-hov);
-}
-
-.secondary:hover {
-  background-color: var(--secondary-hov);
-}
-
-.primary, .primary:active {
-  background-color: var(--primary);
-  color: #FFF;
-}
-
-.secondary, .secondary:active {
-  background-color: var(--secondary);
-  color: #000;
-}
-
-.center {
-  margin: auto;
-}
-
-.left {
-  position: absolute;
-  left: 20px;
-}
-
-button.center.icon, .btn.center.icon {
-  border-radius: 100px;
-}
-
-button.left.icon, .btn.left.icon {
-  padding: 5px;
 }

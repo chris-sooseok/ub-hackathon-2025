@@ -15,6 +15,7 @@ export default function RootLayout() {
     return <Navigate to="/app" replace />;
   }
 
+  // public pages
   const publicPaths = ["/app", "/app/login", "/app/signup"];
 
   // If not authenticated, allow only public pages
