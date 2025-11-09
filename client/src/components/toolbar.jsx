@@ -1,13 +1,14 @@
 // toolbar contains login/register if not logged in
 // pic/map button and options if logged on
-import { useState } from "react";
 import cameraIcon from "../assets/icons/Camera.svg";
 import mapIcon from "../assets/icons/Map.svg";
 import settingsIcon from "../assets/icons/Settings.svg";
+import { AuthContext } from "../context/AuthContext.jsx";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 const Toolbar = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const isLoggedIn = useContext(AuthContext);
     const onPostPage = location.pathname.startsWith("/make-post");
 
     return (
