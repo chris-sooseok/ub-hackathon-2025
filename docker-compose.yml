@@ -1,6 +1,6 @@
 services:
   mongo:
-    image: mongo:6
+    image: mongo:4.2.5
     restart: unless-stopped
     volumes:
       - mongodata:/data/db
@@ -13,35 +13,24 @@ services:
     container_name: server
     depends_on:
       - mongo
-    # ports: # to expose port so frontend can request. can change after reverse proxy config
-    #   - "5500:5500"
+    ports: # to expose port so frontend can request. can change after reverse proxy config
+      - "5500:5500"
+    volumes:
+      - server_media:/app/media
 
   client:
     build:
       context: .
       dockerfile: client.Dockerfile
       args:
-        VITE_API_URL: https://ubvend.me/api
+        VITE_API_URL: http://localhost:5500/api
     container_name: client
-    restart: unless-stopped
+    restart: always
     depends_on:
       - server
-    # ports:
-    #   - "8080:8080"
-
-  caddy:
-    image: caddy:2
-    restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - caddydata:/data
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-    depends_on:
-      - client
-      - server
+      - "8080:8080"
 
 volumes:
   mongodata:
-  caddydata:
+  server_media:

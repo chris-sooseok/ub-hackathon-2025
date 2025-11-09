@@ -103,7 +103,11 @@ export default function Map() {
             if (m) savedMarkerRefs.current[p.id] = m;
             else delete savedMarkerRefs.current[p.id];
           }}
-          eventHandlers={{ popupopen: () => loadPinImage(p.id) }}
+          eventHandlers={{
+            popupopen: () => {
+              if (p.image_path) loadPinImage(p.id);
+            },
+          }}
         >
           <Popup autoPan>
             <div
