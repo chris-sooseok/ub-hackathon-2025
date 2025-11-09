@@ -1,0 +1,74 @@
+/* src/WebcamComponent.module.css */
+
+.wrap {
+  display: grid;
+  gap: 8px;
+}
+
+.frame {
+  width: 260px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #000;
+}
+
+/* NEW: text input for label */
+.input {
+  width: 260px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: inherit;
+  background: #fff;
+  color: #111827;
+  resize: none;
+}
+
+.input:focus {
+  outline: 2px solid rgba(59,130,246,0.35);
+  border-color: #93c5fd;
+}
+
+/* When invalid: red border + red placeholder (shows warning inside the box) */
+.inputError {
+  border-color: #ef4444;
+}
+.inputError::placeholder {
+  color: #ef4444;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  flex: 1;
+}
+
+.btnPrimary {
+  background: #fff;
+}
+
+.btnGhost {
+  background: transparent;
+  border-style: dashed;
+}
+
+.noticeSuccess {
+  color: #10b981;
+  font-size: 14px;
+}
+
+.noticeError {
+  color: #ef4444;
+  font-size: 14px;
+}
