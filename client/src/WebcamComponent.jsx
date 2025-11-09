@@ -30,7 +30,7 @@ const CustomWebcam = ({id}) => {
       {imgSrc ? (
         <img src={imgSrc} alt="webcam" />
       ) : (
-        <Webcam height={600} width={600} ref={webcamRef} />
+        <Webcam height={600} width={600} ref={webcamRef} videoConstraints={{facingMode:{exact:"environment"}}}/>
       )}
       <div className="btn-container">
         <button onClick={capture}>Capture photo</button>
