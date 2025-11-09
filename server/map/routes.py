@@ -25,6 +25,12 @@ def _ensure_media_dir():
   os.makedirs(media_root, exist_ok=True)         # creates folder if not present
   return media_root
 
+def _media_root():
+    # If you already have _ensure_media_dir(), you can reuse that instead.
+    root = os.path.join(current_app.root_path, "media")
+    os.makedirs(root, exist_ok=True)
+    return root
+
 @map_bp.post("/map/create-marker")
 @require_auth
 def create_marker():
@@ -106,3 +112,37 @@ def fetch_pins():
 
     return jsonify(out)
 
+
+@map_bp.get("/map/fetch-image")
+def fetch_image():
+    """
+    GET /api/map/fetch-image?id=<pin_id>
+    Returns the image bytes for a given pin.
+    """
+    pin_id = request.args.get("id")
+    if not pin_id:
+        return jsonify({"error": "missing id"}), 400
+
+    try:
+        oid = ObjectId(pin_id)
+    except Exception:
+        return jsonify({"error": "invalid id"}), 400
+
+    doc = pins.find_one({"_id": oid}, {"image_path": 1})
+    if not doc or not doc.get("image_path"):
+        return jsonify({"error": "not found"}), 404
+
+    # image_path was stored like "/api/media/<filename>"
+    filename = os.path.basename(doc["image_path"])
+    if not filename:
+        return jsonify({"error": "not found"}), 404
+
+    media_root = _media_root()
+    filepath = os.path.join(media_root, filename)
+    if not os.path.isfile(filepath):
+        return jsonify({"error": "file missing"}), 404
+
+    resp = send_from_directory(media_root, filename)
+    # Lightweight caching (1 week); tweak as you like
+    resp.headers["Cache-Control"] = "public, max-age=604800"
+    return resp
