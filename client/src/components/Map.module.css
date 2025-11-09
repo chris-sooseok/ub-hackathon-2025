@@ -15,3 +15,31 @@
 .takePhotoBtn:hover {
   background: var(--secondary-hov, #a2d4f1);
 }
+
+.pinLabel {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  line-height: 1.3;
+  color: #111827;
+  word-wrap: break-word;
+}
+
+/* under your existing styles in Map.module.css */
+.caption {
+  margin: 4px 0 8px;
+  display: grid;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #111827;
+}
+
+.captionLabel {
+  font-weight: 600;
+}
+
+.captionDate {
+  color: #6b7280;       /* subtle gray */
+  font-variant-numeric: tabular-nums;
+}
