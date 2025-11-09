@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import RootLayout from "./pages/RootLayout.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Map from "./map.jsx";
 
-function App() {
+export default function App() {
   const [count, setCount] = useState(0)
   const [connectionStatus, setConnectionStatus] = useState(null)
 
