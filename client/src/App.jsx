@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import "./App.css"
 import RootLayout from "./pages/RootLayout.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import LoginPage from "./pages/auth/LoginPage.jsx";
@@ -21,7 +20,6 @@ export default function App() {
             <Route index element={<LandingPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="signup" element={<SignupPage />} />
-            <Route path="test" element={<AuthTestPage />} />
           </Route>
 
           {/* Catch-all → "/app" */}

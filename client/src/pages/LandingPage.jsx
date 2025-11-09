@@ -1,11 +1,11 @@
-import MapPage from "../components/Map";
+import Map from "../components/Map";
 import Toolbar from "../components/Toolbar";
 
 export default function LandingPage() {
 
   return (
     <>
-      <MapPage />
+      <Map />
       <Toolbar />
     </>
   );

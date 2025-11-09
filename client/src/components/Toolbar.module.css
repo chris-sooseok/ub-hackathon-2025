@@ -1,0 +1,87 @@
+/* src/components/Navbar.module.css */
+
+/* Toolbar container fixed at the bottom */
+.toolbar {
+  background-color: var(--neutral);
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 60px;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  z-index: 9999;
+}
+
+/* half-width buttons */
+.tb3 {
+  max-width: calc(50% - 10px);
+  width: 50%;
+}
+
+/* --- Button styles moved from former global index.css --- */
+.btn {
+  padding: 10px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block; /* so <Link> looks like a button */
+}
+
+.primary {
+  background-color: var(--primary);
+  color: #fff;
+}
+.primary:hover {
+  background-color: var(--primary-hov);
+}
+
+.secondary {
+  background-color: var(--secondary);
+  color: #000;
+}
+.secondary:hover {
+  background-color: var(--secondary-hov);
+}
+
+/* anchor the dropdown to the settings button */
+.settingsWrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* toggle box positioned ABOVE the left-bottom icon */
+.settingsMenu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  min-width: 160px;
+  padding: 8px;
+  background: #fff;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+  z-index: 10000;
+  max-height: 60vh;
+  overflow: auto;
+}
+
+.menuItem {
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.menuItem:hover {
+  background: #f3f4f6;
+}
+
+

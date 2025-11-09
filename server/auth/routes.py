@@ -86,3 +86,9 @@ def me():
         return jsonify({"authenticated": False}), 401
 
     return jsonify({"authenticated": True})
+
+@auth_bp.post("/auth/logout")
+def logout():
+    # Remove any session data (including user_id)
+    session.clear()
+    return jsonify({"success": True})
