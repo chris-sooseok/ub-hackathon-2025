@@ -6,11 +6,8 @@ services:
     build:
       context: .
       dockerfile: server.Dockerfile
+    env_file: ./.env
     container_name: server
-    environment:
-      MONGO_URL: mongodb://mongo:27017
-      MONGO_DOCUMENT: vendme-db
-      WAIT_HOSTS: mongo:27017
     ports: # to expose port so frontend can request. can change after reverse proxy config
       - "5500:5500"
 

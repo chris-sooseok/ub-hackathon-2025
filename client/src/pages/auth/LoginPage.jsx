@@ -1,11 +1,14 @@
 // src/pages/LoginPage.jsx
 import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";  // useNavigate: programmatic redirect
 import styles from "./LoginPage.module.css";
 
 export default function LoginPage() {
   const [values, setValues] = useState({ email: "", password: "" });
   const [serverError, setServerError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate(); // gives you the navigate() function
 
   const refs = {
     email: useRef(null),
@@ -23,11 +26,10 @@ export default function LoginPage() {
     setIsSubmitting(true);
 
     try {
-      // Adjust the URL to your backend route
       const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" }, // tell server we send JSON
-        credentials: "include",                          // send cookies for session auth
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
           email: values.email,
           password: values.password,
@@ -35,14 +37,13 @@ export default function LoginPage() {
       });
 
       if (!res.ok) {
-        // Try to read server error message; fall back to a generic one
         const data = await res.json().catch(() => ({}));
         setServerError(data.error || data.message || "Login failed. Check your email or password.");
         return;
       }
 
-      // Success: you can redirect or refresh app state here
-      console.log("login success");
+      // redirect to your landing page on success
+      navigate("/app", { replace: true }); // change "/app" if your landing route differs
     } catch (err) {
       setServerError("Network error. Please try again.");
     } finally {
@@ -84,10 +85,15 @@ export default function LoginPage() {
             {serverError}
           </p>
         )}
-        
+
         <button className={styles.button} type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Logging in..." : "Log in"}
         </button>
+
+        <p className={styles.meta}>
+          Don’t have an account?{" "}
+          <Link to="/app/signup" className={styles.metaLink}>Sign up</Link>
+        </p>
       </form>
     </div>
   );

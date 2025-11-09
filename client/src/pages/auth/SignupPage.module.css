@@ -99,3 +99,17 @@
   background: #d1d5db;       /* stay light grey while submitting */
   color: #111827;
 }
+
+/* add to SignupPage.module.css */
+.meta {
+  margin-top: 12px;         /* space below the button */
+  text-align: center;
+  font-size: 14px;
+  color: #e5e7eb;           /* light grey (good on blue form) */
+}
+
+.metaLink {
+  color: #ffffff;           /* white link for contrast on blue */
+  font-weight: 600;
+  text-decoration: underline;
+}

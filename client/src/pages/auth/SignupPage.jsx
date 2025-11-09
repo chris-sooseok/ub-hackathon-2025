@@ -1,13 +1,16 @@
 // src/pages/SignupPage.jsx
 import React, { useRef, useState } from "react";
+import { useNavigate, Link } from "react-router-dom"; // add Link for the redirect UI
 import styles from "./SignupPage.module.css";
 import { validateEmail, validatePassword, validateConfirmPassword } from "./signup-page-util";
 
 export default function SignupPage() {
   const [values, setValues] = useState({ email: "", password: "", confirmPassword: "" });
-  const [errors, setErrors] = useState({});           // only set after submit
-  const [serverError, setServerError] = useState(""); // <-- add this
+  const [errors, setErrors] = useState({});
+  const [serverError, setServerError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate();
 
   const refs = {
     email: useRef(null),
@@ -22,9 +25,8 @@ export default function SignupPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setServerError(""); // clear any prior server error
+    setServerError("");
 
-    // 1) Validate first (no spinner yet)
     const nextErrors = {
       email: validateEmail(values.email),
       password: validatePassword(values.password),
@@ -35,22 +37,24 @@ export default function SignupPage() {
     const firstInvalid = Object.entries(nextErrors).find(([, msg]) => msg)?.[0];
     if (firstInvalid) {
       refs[firstInvalid].current?.focus();
-      return; // stop here; don't mark as submitting
+      return;
     }
 
-    // 2) Submit only if valid
     setIsSubmitting(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/signup`, {
+      const req = fetch(`${import.meta.env.VITE_API_URL}/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" }, // sends JSON body
         credentials: "include",                          // include cookies for session auth
         body: JSON.stringify({
           email: values.email,
           password: values.password,
-          confirmPassword: values.confirmPassword,       // include only if your API expects it
+          confirmPassword: values.confirmPassword,
         }),
       });
+      const minDelay = new Promise((r) => setTimeout(r, 2000)); // ensure 2s "Creating..."
+
+      const [res] = await Promise.all([req, minDelay]);
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -58,8 +62,7 @@ export default function SignupPage() {
         return;
       }
 
-      // success path (navigate or show success UI)
-      console.log("signup success");
+      navigate("/app/login", { replace: true }); // go to login after success
     } catch {
       setServerError("Network error. Please try again.");
     } finally {
@@ -142,6 +145,12 @@ export default function SignupPage() {
         <button className={styles.button} type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Creating..." : "Create account"}
         </button>
+
+        {/* login redirect below the button */}
+        <p className={styles.meta}>
+          Already have an account?{" "}
+          <Link to="/app/login" className={styles.metaLink}>Log in</Link>
+        </p>
       </form>
     </div>
   );

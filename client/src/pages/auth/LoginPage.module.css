@@ -99,3 +99,16 @@
   background: #d1d5db;       /* stay light grey while submitting */
   color: #111827;
 }
+
+.meta {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: #e5e7eb;        /* light grey on blue background */
+}
+
+.metaLink {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: underline;
+}
