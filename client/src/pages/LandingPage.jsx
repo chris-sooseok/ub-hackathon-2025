@@ -1,22 +1,25 @@
-import { useNavigate } from "react-router-dom"; // hook for programmatic navigation
+import { useNavigate } from "react-router-dom";
+import MapPage from "../MapPage.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
+import { useContext } from "react";
 
 export default function LandingPage() {
-  const navigate = useNavigate(); // gives you a navigate(...) function
+  const navigate = useNavigate();
+  const isAuthenticated = useContext(AuthContext);
 
   return (
     <>
-    <button
-      type="button"
-      onClick={() => navigate("login")} // relative to /app → goes to /app/login
-    >
-      Go to Login
-    </button>    
-    <button
-      type="button"
-      onClick={() => navigate("signup")} // relative to /app → goes to /app/login
-    >
-      Go to Signup
-    </button>
+      <MapPage />
+      {!isAuthenticated && (
+        <>
+          <button type="button" onClick={() => navigate("login")}>
+            Go to Login
+          </button>
+          <button type="button" onClick={() => navigate("signup")}>
+            Go to Signup
+          </button>
+        </>
+      )}
     </>
   );
 }

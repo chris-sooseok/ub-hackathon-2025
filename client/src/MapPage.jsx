@@ -3,7 +3,7 @@ import { Component,useState, useEffect } from "react"
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import CustomWebcam from "./WebcamComponent.jsx";
 
-export default function Map() {
+export default function MapPage() {
     const handleClick = async (id) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/map/send/`+id)

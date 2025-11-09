@@ -1,27 +1,26 @@
-
-import { Outlet } from "react-router-dom";
-import { useState, useEffect } from "react";
+// src/layouts/RootLayout.jsx
+import React, { useContext } from "react";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export default function RootLayout() {
+  const isAuthenticated = useContext(AuthContext); // boolean from AuthContext
+  const { pathname } = useLocation();
 
-    const checkConnection = async () => {
-        try {
-          const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/check-connection`)
-          if (!response.ok) throw new Error('Network response was not ok')
-          const data = await response.json()
-          console.log(data.message);
-        } catch (error) {
-          console.error(error)
-        }
-      }
+  // while auth is unknown, don't redirect yet
+  if (isAuthenticated === null) return null; // or a tiny loader if you want
 
-    useEffect(() => {
-        checkConnection()
-    }, [])
+  // If authenticated, block access to login/signup and send to landing
+  if (isAuthenticated && (pathname === "/app/login" || pathname === "/app/signup")) {
+    return <Navigate to="/app" replace />;
+  }
 
-    return (
-    <>
-        <Outlet />
-    </>
-    )
+  const publicPaths = ["/app", "/app/login", "/app/signup"];
+
+  // If not authenticated, allow only public pages
+  if (!isAuthenticated && !publicPaths.includes(pathname)) {
+    return <Navigate to="/app" replace />;
+  }
+
+  return <Outlet />;
 }
