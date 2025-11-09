@@ -1,5 +1,5 @@
-import MapPage from "../components/Map.jsx"
-import Toolbar from "../components/Toolbar.jsx"
+import MapPage from "../components/map";
+import Toolbar from "../components/toolbar";
 
 export default function LandingPage() {
   // const navigate = useNavigate();
