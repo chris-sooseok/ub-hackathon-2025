@@ -45,3 +45,4 @@ services:
 volumes:
   mongodata:
   caddydata:
+  server_media:
