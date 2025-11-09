@@ -1,9 +1,11 @@
 # server/app.py
 import os
+import pymongo
 from flask import Flask, jsonify
 from flask import Flask, jsonify,request,send_file
 from flask_cors import CORS
 from db import db
+import time
 from auth import auth_bp  # must expose a Blueprint named auth_bp
 
 app = Flask(__name__)
@@ -17,7 +19,6 @@ CORS(
     supports_credentials=True,
     origins=os.getenv("CORS_ORIGINS", "http://localhost:8080").split(","),
 )
-CORS(app)
 
 mycol = db["photos"]
 

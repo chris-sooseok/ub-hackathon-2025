@@ -1,7 +1,7 @@
 import React from "react";
 import { Component,useState, useEffect } from "react"
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-import CustomWebcam from "../WebcamComponent.jsx";
+import CustomWebcam from "./WebcamComponent.jsx";
 
 export default function Map() {
  
