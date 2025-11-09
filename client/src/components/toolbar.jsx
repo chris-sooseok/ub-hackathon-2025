@@ -34,8 +34,8 @@ const Toolbar = () => {
             ) : (
                 // Case 3: Not logged in
                 <>
-                    <button className="tb-3">Log In</button>
-                    <button className="tb-3">Register</button>
+                    <button className="tb-3 primary">Log In</button>
+                    <button className="tb-3 secondary">Register</button>
                 </>
             )}
         </div>
