@@ -25,6 +25,10 @@ def hello_world():
 def check():
     return jsonify({"message": "✅ connected!"})
 
+@app.route('/api/map/send/<pin>',methods=['POST'])
+def send_pin(pin):
+    return jsonify({"message": "pin info received"})
+
 @app.route("/api/db/ping")
 def db_ping():
     # ping mongo at start, raises if not connected
