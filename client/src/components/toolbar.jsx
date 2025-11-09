@@ -6,7 +6,7 @@ import mapIcon from "../assets/icons/Map.svg";
 import settingsIcon from "../assets/icons/Settings.svg";
 
 const Toolbar = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     const onPostPage = location.pathname.startsWith("/make-post");
 
     return (

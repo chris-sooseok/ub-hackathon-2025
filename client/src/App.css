@@ -9,6 +9,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  /* make sure toolbar shows above map and anything else */
+  z-index: 9999;
 }
 
 #toolbar .tb-3 {

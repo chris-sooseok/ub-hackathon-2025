@@ -4,7 +4,7 @@ import Toolbar from "../components/toolbar"
 const Test = () => {
     return (
         <>
-            {/* <Map /> */}
+            <Map />
             <Toolbar />
         </>
     )
