@@ -1,14 +1,22 @@
+# server/app.py
+import os
+from flask import Flask, jsonify
 from flask import Flask, jsonify,request,send_file
 from flask_cors import CORS
 from db import db
-import os
-import time
-import pymongo
-
-
-
+from auth import auth_bp  # must expose a Blueprint named auth_bp
 
 app = Flask(__name__)
+
+# Needed for Flask session cookies (used after login/signup)
+app.secret_key = os.getenv("SECRET_KEY", "dev-secret")
+
+# CORS: allow the React client to send cookies (credentials)
+CORS(
+    app,
+    supports_credentials=True,
+    origins=os.getenv("CORS_ORIGINS", "http://localhost:8080").split(","),
+)
 CORS(app)
 
 mycol = db["photos"]
@@ -19,11 +27,11 @@ mycol2.insert_one({"pin":2,"loc":[43.000654, -78.787099]})
 mycol2.insert_one({"pin":3,"loc":[43.001130, -78.788515]})
 
 
-@app.route('/')
+@app.route("/")
 def hello_world():
-    return 'Hello, World!'
+    return "Hello, World!"
 
-@app.route('/api/check-connection')
+@app.route("/api/check-connection")
 def check():
     return jsonify({"message": "✅ connected!"})
 
@@ -65,5 +73,12 @@ def db_ping():
     db.client.admin.command("ping")
     return jsonify({"ok": True, "db": db.name, "collections": sorted(db.list_collection_names())})
 
-if __name__ == '__main__':
+# --- Auth routes are provided by the blueprint ---
+# If your blueprint defines @auth_bp.post("/auth/signup") and @auth_bp.post("/auth/login"),
+# then mounting at url_prefix="/api" yields:
+#   POST /api/auth/signup
+#   POST /api/auth/login
+app.register_blueprint(auth_bp, url_prefix="/api")
+
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5500, debug=True)
