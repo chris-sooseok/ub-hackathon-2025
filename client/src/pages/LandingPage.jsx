@@ -1,11 +1,27 @@
-import Map from "../components/map"
+import { useNavigate } from "react-router-dom";
+import MapPage from "../MapPage.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
+import { useContext } from "react";
 import Toolbar from "../components/toolbar"
 
 export default function LandingPage() {
-    return (
+  const navigate = useNavigate();
+  const isAuthenticated = useContext(AuthContext);
+
+  return (
+    <>
+      <MapPage />
+      <Toolbar />
+      {!isAuthenticated && (
         <>
-            <Map />
-            <Toolbar />
+          <button type="button" onClick={() => navigate("login")}>
+            Go to Login
+          </button>
+          <button type="button" onClick={() => navigate("signup")}>
+            Go to Signup
+          </button>
         </>
-    )
+      )}
+    </>
+  );
 }

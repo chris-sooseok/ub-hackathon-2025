@@ -13,7 +13,7 @@ app.secret_key = os.getenv("SECRET_KEY", "dev-secret")
 # CORS: allow the React client to send cookies (credentials)
 CORS(
     app,
-    supports_credentials=True,                                  # allow cookies
+    supports_credentials=True,
     origins=os.getenv("CORS_ORIGINS", "http://localhost:8080").split(","),
 )
 

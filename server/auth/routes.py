@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 from flask import request, jsonify, session
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from bson import ObjectId
 from . import auth_bp
 from db import users
 
@@ -73,3 +73,16 @@ def login():
 
     session["user_id"] = str(user["_id"])                        # Comment: keep user logged in
     return jsonify({"success": True})
+
+
+@auth_bp.get("/auth/me")  # GET to match fetch_me()
+def me():
+    uid = session.get("user_id")
+    if not uid:
+        return jsonify({"authenticated": False}), 401
+
+    user = users.find_one({"_id": ObjectId(uid)}, {"password_hash": 0})
+    if not user:
+        return jsonify({"authenticated": False}), 401
+
+    return jsonify({"authenticated": True})
