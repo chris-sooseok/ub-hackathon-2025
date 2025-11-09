@@ -69,16 +69,40 @@ def create_marker():
     "image_path": image_path,
     "created_at": datetime.utcnow(),
   }
-  ok = pins.insert_one(doc)
-  print(ok)
+  pins.insert_one(doc)
 
   return jsonify({
     "success": True,
     "pin": { "id": pin_id, "lat": lat, "lng": lng, "image_path": image_path }
   }), 201
 
-# Optional: serve media back
-@map_bp.get("/media/<path:filename>")
-def get_media(filename):
-  media_root = _ensure_media_dir()
-  return send_from_directory(media_root, filename)
+
+@map_bp.get("/map/fetch-pins")
+def fetch_pins():
+    """
+    Returns all pins. Optional ?limit=NN query param.
+    Each item: {id, lat, lng, image_path, created_at}
+    """
+    limit = request.args.get("limit", type=int)
+
+    q = pins.find(
+        {}, 
+        {"lat": 1, "lng": 1, "image_path": 1, "created_at": 1}
+    ).sort("created_at", -1)
+
+    if limit:
+        q = q.limit(limit)
+
+    out = []
+    for doc in q:
+        out.append({
+            "id": str(doc["_id"]),
+            "lat": float(doc.get("lat", 0.0)),
+            "lng": float(doc.get("lng", 0.0)),
+            "image_path": doc.get("image_path", ""),
+            # ISO string for client display (omit if None)
+            "created_at": doc["created_at"].isoformat() + "Z" if isinstance(doc.get("created_at"), datetime) else None,
+        })
+
+    return jsonify(out)
+
