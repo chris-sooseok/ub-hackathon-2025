@@ -12,5 +12,9 @@
 - Deployment: Namecheap, DigitalOcean, Caddy, Nginx, Docker
 - AI: ChatGPT  
 
+## APP URL
+- https://ubvend.me/app
+- https://2025ubhacking-vendme.live/app
+
 ## DevPost
 https://devpost.com/software/vendme
