@@ -25,7 +25,7 @@ services:
       context: .
       dockerfile: client.Dockerfile
       args:
-        VITE_API_URL: https://ubvend.me/api
+        VITE_API_URL: https://2025ubhacking-vendme.live/api
     container_name: client
     restart: unless-stopped
     depends_on:

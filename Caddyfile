@@ -1,19 +1,16 @@
-ubvend.me, www.ubvend.me {
+2025ubhacking-vendme.live, www.2025ubhacking-vendme.live {
   encode gzip
 
-  #this is to redirect "www" to the root
-  @www host www.ubvend.me
+  @www host www.2025ubhacking-vendme.live
   handle @www {
-    redir https://ubvend.me{uri} 308
+    redir https://2025ubhacking-vendme.live{uri} 308
   }
 
-  #API → Flask (server service)
   @api path /api/*
   handle @api {
     reverse_proxy server:5500
   }
 
-  #Everything else → React client(Nginx)
   handle {
     reverse_proxy client:8080
   }
