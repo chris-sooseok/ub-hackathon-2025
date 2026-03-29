@@ -1,0 +1,51 @@
+name: vendme-dev
+
+services:
+  mongo:
+    build:
+      context: .
+      dockerfile: mongo.Dockerfile.dev
+    image: vendme-dev-mongo:6
+    container_name: vendme-dev-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_dev_data:/data/db
+
+  server:
+    build:
+      context: .
+      dockerfile: server.Dockerfile.dev
+    env_file: ./.env
+    environment:
+      CORS_ORIGINS: http://localhost:5173
+      MONGO_URL: mongodb://mongo:27017
+      MEDIA_ROOT: /app/media
+    depends_on:
+      - mongo
+    ports:
+      - "5500:5500"
+    volumes:
+      - ./server:/app
+      - server_dev_media:/app/media
+
+  client:
+    build:
+      context: .
+      dockerfile: client.Dockerfile.dev
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      VITE_API_URL: http://localhost:5500/api
+    depends_on:
+      - server
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app
+      - client_node_modules:/app/node_modules
+
+volumes:
+  mongo_dev_data:
+  server_dev_media:
+  client_node_modules:
