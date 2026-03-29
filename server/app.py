@@ -19,7 +19,7 @@ app.config.update(
     PERMANENT_SESSION_LIFETIME=timedelta(days=7),
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE="Lax",   # use "None" + SECURE=True if cross-site over HTTPS
-    SESSION_COOKIE_SECURE=False,     # set True in production (HTTPS)
+    SESSION_COOKIE_SECURE=True     # set True in production (HTTPS)
 )
 
 # CORS: allow the React client to send cookies (credentials)

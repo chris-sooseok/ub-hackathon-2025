@@ -13,8 +13,6 @@ services:
     container_name: server
     depends_on:
       - mongo
-    # ports: # to expose port so frontend can request. can change after reverse proxy config
-    #   - "5500:5500"
     environment:
       - MEDIA_ROOT=/data/media
     volumes:
@@ -25,13 +23,11 @@ services:
       context: .
       dockerfile: client.Dockerfile
       args:
-        VITE_API_URL: https://ubvend.me/api
+        VITE_API_URL: https://2025ubhacking-vendme.live/api
     container_name: client
     restart: unless-stopped
     depends_on:
       - server
-    # ports:
-    #   - "8080:8080"
 
   caddy:
     image: caddy:2
