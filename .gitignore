@@ -1,0 +1,5 @@
+/.env
+/client.Dockerfile.dev
+/server.Dockerfile.dev
+/mongo.Dockerfile.dev
+/docker-compose.dev.yml
