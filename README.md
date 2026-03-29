@@ -6,13 +6,4 @@ Deployment: DigitalOcean, Namecheap, Caddy, Docker, Nginx
 AI:  ChatGPT  
 
 Notes: 
-The leaderboard function is a placeholder
-
-
-# Dev
-## docker compose up
-`docker compose -f docker-compose.dev.yml up --build`
-## docker compose down
-`docker compose -f docker-compose.dev.yml down`
-
-# Prod
+The leaderboard function is a placeholderst

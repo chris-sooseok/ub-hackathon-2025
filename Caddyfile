@@ -1,16 +1,32 @@
-2025ubhacking-vendme.live, www.2025ubhacking-vendme.live {
-  encode gzip
 
+# At the lowest level, Caddy is just a process listening on network sockets.
+# When a TCP/TLS connection hits port 80 or 443, the the OS wakes Caddy up and hands it the request
+# It is the same basic idea as any server process listening on a port.
+# Caddy automatically provisions TLS certificates for public DNS names, keeps them renewed, and also
+# redirects HTTP to HTTPS by default.
+
+# Site block use
+2025ubhacking-vendme.live, www.2025ubhacking-vendme.live {
+  # Caddy compresses responses with gzip when appropriate, so smaller payload over network
+  encode gzip
+  
+  # match only requests whose host is www.2025ubhacking-vendme.live
   @www host www.2025ubhacking-vendme.live
+
+  # after receving HTTP requests from the OS, check request properties like Host and path
+  # then applying the first matching handle block
+  # either returning a 308 redirect or proxying to the correct upstream
   handle @www {
     redir https://2025ubhacking-vendme.live{uri} 308
   }
 
+  # proxies /api/* to server:5500
   @api path /api/*
   handle @api {
     reverse_proxy server:5500
   }
 
+  # Otherwise, proxies to client:8080
   handle {
     reverse_proxy client:8080
   }

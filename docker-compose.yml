@@ -1,10 +1,12 @@
 services:
+  # database container
   mongo:
     image: mongo:6
     restart: unless-stopped
     volumes:
       - mongodata:/data/db
 
+  # Flask backend container
   server:
     build:
       context: .
@@ -18,6 +20,7 @@ services:
     volumes:
       - server_media:/data/media
 
+  # React production build served by Nginx
   client:
     build:
       context: .
@@ -29,9 +32,12 @@ services:
     depends_on:
       - server
 
+  # Public web server
   caddy:
     image: caddy:2
     restart: unless-stopped
+    # publish ports that browsers can connect to in caddy container
+    # the OS sends incoming web traffic on these ports into Caddy
     ports:
       - "80:80"
       - "443:443"
@@ -42,6 +48,7 @@ services:
       - client
       - server
 
+# Creating and naming volumes
 volumes:
   mongodata:
   caddydata:

@@ -3,3 +3,4 @@
 /server.Dockerfile.dev
 /mongo.Dockerfile.dev
 /docker-compose.dev.yml
+/README.prod.md

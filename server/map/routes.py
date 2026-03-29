@@ -1,4 +1,3 @@
-# server/map/routes.py
 import os
 from datetime import datetime, timezone
 from flask import current_app, jsonify, request, send_from_directory, session
@@ -21,9 +20,9 @@ def require_auth(fn):
 
 def _ensure_media_dir():
   """Create media folder inside the Flask app root, if missing."""
-  media_root = os.path.join(current_app.root_path, "media")
-  os.makedirs(media_root, exist_ok=True)         # creates folder if not present
-  return media_root
+  root = current_app.config["MEDIA_ROOT"]
+  os.makedirs(root, exist_ok=True)
+  return root
 
 def _media_root():
     # If you already have _ensure_media_dir(), you can reuse that instead.
@@ -75,7 +74,6 @@ def create_marker():
 
     # Save image as <pin_id>.<ext>
     filename = secure_filename(f"{pin_id}{ext}")
-    media_root = _media_root()
     save_path = os.path.join(media_root, filename)
     img.save(save_path)
 
@@ -161,7 +159,7 @@ def fetch_image():
     if not filename:
         return jsonify({"error": "not found"}), 404
 
-    media_root = _media_root()
+    media_root = _ensure_media_dir()
     filepath = os.path.join(media_root, filename)
     if not os.path.isfile(filepath):
         return jsonify({"error": "file missing"}), 404
