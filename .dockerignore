@@ -1,9 +1,8 @@
 **/__pycache__
 **/*.pyc
 node_modules
-dist
 .env
-.git
-.gitignore
-Dockerfile
-docker-compose.yml
+docker-compose.dev.yml
+client.Dockerfile.dev
+server.Dockerfile.dev
+mongo.Dockerfile.dev
