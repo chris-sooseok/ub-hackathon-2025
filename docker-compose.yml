@@ -1,10 +1,12 @@
 services:
+  # database container
   mongo:
     image: mongo:6
     restart: unless-stopped
     volumes:
       - mongodata:/data/db
 
+  # Flask backend container
   server:
     build:
       context: .
@@ -18,6 +20,7 @@ services:
     volumes:
       - server_media:/data/media
 
+  # React production build served by Nginx
   client:
     build:
       context: .
@@ -29,6 +32,7 @@ services:
     depends_on:
       - server
 
+  # Public web server
   caddy:
     image: caddy:2
     restart: unless-stopped
