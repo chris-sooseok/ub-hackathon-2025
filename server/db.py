@@ -1,5 +1,5 @@
 import os
-from pymongo import MongoClient, ASCENDING, DESCENDING
+from pymongo import MongoClient
 
 MONGO_URL = os.getenv("MONGO_URL", "mongodb://localhost:27017")
 DB_NAME   = os.getenv("MONGO_DOCUMENT", "vendme-db")
