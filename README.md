@@ -1,9 +1,16 @@
 # About VendMe
-Resources used-  
-Frontend: React.js, Leaflet.js, OpenStreetMaps API  
-Backend: Flask, MongoDB  
-Deployment: DigitalOcean, Namecheap, Caddy, Docker, Nginx  
-AI:  ChatGPT  
 
-Notes: 
-The leaderboard function is a placeholderst
+## Developers
+- Chris Kim
+- Alex Kim
+- Oscar Li
+- Neem Zaman
+
+## Tech Stack  
+- Frontend: React.js, Leaflet.js (OpenStreetMaps API)
+- Backend: Flask, MongoDB  
+- Deployment: Namecheap, DigitalOcean, Caddy, Nginx, Docker
+- AI: ChatGPT  
+
+## DevPost
+https://devpost.com/software/vendme
