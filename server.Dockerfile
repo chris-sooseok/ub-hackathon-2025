@@ -4,8 +4,9 @@ WORKDIR /app
 
 # install dependencies
 COPY server/requirements.txt .
-# WSGI = a standard interface between Python web apps and web servers
-# Gunicorn = the production server that runs Flask app and listen for incoming requests.
+# WSGI = a standard/interface for how Python web apps talk to web servers
+# Gunicorn = the production server that runs Flask app through WSGI standard
+# and listen for incoming requests.
 RUN pip install --no-cache-dir -r requirements.txt && pip install --no-cache-dir gunicorn
 
 COPY server/ .
