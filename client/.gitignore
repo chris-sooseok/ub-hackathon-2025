@@ -10,8 +10,12 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-*.local
-*.env
+
+.env
+client.Dockerfile.dev
+server.Dockerfile.dev
+mongo.Dockerfile.dev
+docker-compose.dev.yml
 
 # Editor directories and files
 .vscode/*
