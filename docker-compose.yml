@@ -36,6 +36,8 @@ services:
   caddy:
     image: caddy:2
     restart: unless-stopped
+    # publish ports that browsers can connect to in caddy container
+    # the OS sends incoming web traffic on these ports into Caddy
     ports:
       - "80:80"
       - "443:443"
@@ -46,6 +48,7 @@ services:
       - client
       - server
 
+# Creating and naming volumes
 volumes:
   mongodata:
   caddydata:

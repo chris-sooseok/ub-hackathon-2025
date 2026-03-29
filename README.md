@@ -6,4 +6,4 @@ Deployment: DigitalOcean, Namecheap, Caddy, Docker, Nginx
 AI:  ChatGPT  
 
 Notes: 
-The leaderboard function is a placeholder
+The leaderboard function is a placeholderst

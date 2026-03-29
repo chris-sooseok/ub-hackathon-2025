@@ -1,4 +1,3 @@
-# server/auth/routes.py
 import re
 from datetime import datetime
 from flask import request, jsonify, session
