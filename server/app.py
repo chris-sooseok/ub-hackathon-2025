@@ -8,10 +8,13 @@ from datetime import timedelta
 
 app = Flask(__name__)
 
-app.secret_key = os.getenv("SECRET_KEY", "dev-secret")
+app.secret_key = os.environ["SECRET_KEY"]
 
 # directory where image uploads are stored
 app.config["MEDIA_ROOT"] = os.getenv("MEDIA_ROOT", "/app/media")
+app.config["MAX_CONTENT_LENGTH"] = int(
+    os.getenv("MAX_CONTENT_LENGTH", str(10 * 1024 * 1024))
+)
 
 # Needed for Flask session cookies (used after login/signup)
 app.config.update(
@@ -27,6 +30,14 @@ CORS(
     supports_credentials=True,
     origins=os.getenv("CORS_ORIGINS", "http://localhost:8080").split(","),
 )
+
+@app.get("/api/health")
+def health():
+    try:
+        db.command("ping")
+    except Exception:
+        return {"status": "unhealthy"}, 503
+    return {"status": "ok"}
 
 # Serve map data
 @app.route('/api/map/get',methods=['GET'])

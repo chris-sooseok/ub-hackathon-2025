@@ -1,3 +1,5 @@
+name: vendme
+
 services:
   # database container
   mongo:
@@ -5,6 +7,12 @@ services:
     restart: unless-stopped
     volumes:
       - mongodata:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
 
   # Flask backend container
   server:
@@ -12,13 +20,20 @@ services:
       context: .
       dockerfile: server.Dockerfile
     env_file: ./.env
-    container_name: server
+    restart: unless-stopped
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     environment:
       - MEDIA_ROOT=/data/media
     volumes:
       - server_media:/data/media
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5500/api/health', timeout=5)"]
+      interval: 15s
+      timeout: 6s
+      retries: 5
+      start_period: 20s
 
   # React production build served by Nginx
   client:
@@ -26,30 +41,21 @@ services:
       context: .
       dockerfile: client.Dockerfile
       args:
-        VITE_API_URL: https://2025ubhacking-vendme.live/api
-    container_name: client
+        VITE_API_URL: /api
     restart: unless-stopped
     depends_on:
-      - server
-
-  # Public web server
-  caddy:
-    image: caddy:2
-    restart: unless-stopped
-    # publish ports that browsers can connect to in caddy container
-    # the OS sends incoming web traffic on these ports into Caddy
+      server:
+        condition: service_healthy
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - caddydata:/data
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-    depends_on:
-      - client
-      - server
+      - "127.0.0.1:18080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8080/ || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 # Creating and naming volumes
 volumes:
   mongodata:
-  caddydata:
   server_media:

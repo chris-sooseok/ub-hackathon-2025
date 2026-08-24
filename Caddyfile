@@ -1,3 +1,5 @@
+# Legacy direct-exposure configuration. The Cloudflare Tunnel deployment in
+# docker-compose.yml does not run Caddy or use this file.
 
 # At the lowest level, Caddy is just a process listening on network sockets.
 # When a TCP/TLS connection hits port 80 or 443, the the OS wakes Caddy up and hands it the request
