@@ -6,7 +6,7 @@ Signed-in users drop a pin wherever they find a vending machine, capture a photo
 upload), and add a short note. Every pin — location, photo, and label — appears on a shared
 Leaflet / OpenStreetMap map for everyone else.
 
-- **Live:** <https://ubvend.me/app> · <https://2025ubhacking-vendme.live/app>
+- **Live:** <https://vendme.sooseokk.com/app>
 - **Devpost:** <https://devpost.com/software/vendme>
 
 ## Team
